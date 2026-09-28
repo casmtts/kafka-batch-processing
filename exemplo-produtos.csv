@@ -1,0 +1,5 @@
+sku,nome,preco,estoque
+P-001,Caderno,12.50,20
+P-002,"Caneta, azul",3.90,50
+P-001,Caderno repetido,14.00,10
+P-003,Produto inválido,abc,4
