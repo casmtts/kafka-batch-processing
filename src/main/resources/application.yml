@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: kafka-batch-processing
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/kafka_batches}
+    username: ${DB_USER:kafka}
+    password: ${DB_PASSWORD:kafka}
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: product-imports
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      max-poll-records: 100
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        enable.idempotence: true
+
+app:
+  kafka:
+    topic: product-imports
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.apache.kafka: WARN
